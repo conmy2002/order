@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { Table, Input, Button } from "antd";
+import { Table, Input, Button, Radio } from "antd";
 
 // types
 import type { InputRef, TableColumnsType } from "antd";
@@ -47,6 +47,42 @@ function FilterDropdown({
 	);
 }
 
+function FilterDropdownBoolean({
+	setSelectedKeys,
+	selectedKeys,
+	confirm,
+	clearFilters,
+}: FilterDropdownProps) {
+	return (
+		<div style={{ padding: 5 }}>
+			<Radio.Group
+				value={selectedKeys[0]}
+				onChange={({ target: { value } }) => {
+					setSelectedKeys([value]);
+				}}
+			>
+				<Radio value={true}>是</Radio>
+				<Radio value={false}>否</Radio>
+			</Radio.Group>
+			<div style={{ padding: 5 }}>
+				<Button type="primary" style={{ marginRight: 5 }} onClick={() => confirm()}>
+					搜尋
+				</Button>
+				<Button
+					onClick={() => {
+						if (clearFilters) {
+							clearFilters();
+							confirm();
+						}
+					}}
+				>
+					清除
+				</Button>
+			</div>
+		</div>
+	);
+}
+
 const columns: TableColumnsType<Customer> = [
 	{
 		title: "客戶姓名",
@@ -60,6 +96,14 @@ const columns: TableColumnsType<Customer> = [
 	{ title: "客戶 Line", dataIndex: "fd_line" },
 	{ title: "客戶來源", dataIndex: "fd_from" },
 	{ title: "重要否", dataIndex: "fd_isImportant", render: (isImportant) => (isImportant ? "是" : "否") },
+	{
+		title: "不再購買",
+		dataIndex: "fd_isDisabled",
+		render: (isDisabled) => (isDisabled ? "是" : "否"),
+		defaultFilteredValue: [false],
+		filterDropdown: FilterDropdownBoolean,
+		onFilter: (value, record) => Boolean(record.fd_isDisabled) === value,
+	},
 ];
 
 function ShowTable({ userData, customers }: { userData: UserData; customers: Customer[] }) {

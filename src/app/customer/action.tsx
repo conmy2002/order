@@ -16,6 +16,7 @@ async function addCustomerAction(submitCustomer: Customer) {
 		customer.fd_line = submitCustomer.fd_line;
 		customer.fd_from = submitCustomer.fd_from;
 		customer.fd_isImportant = submitCustomer.fd_isImportant;
+		customer.fd_isDisabled = submitCustomer.fd_isDisabled;
 		await db.saveDoc(customer, userData, "修改客戶");
 		return true;
 	} else {

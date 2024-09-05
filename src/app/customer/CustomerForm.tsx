@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Input, Radio, Button, message } from "antd";
+import { Input, Radio, Button, Checkbox, message } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import SubTitle from "@/components/SubTitle";
 import Row from "@/components/Row";
@@ -21,7 +21,7 @@ function CustomerForm({ customer }: CustomerFormProps) {
 
 	return (
 		<div>
-			<SubTitle title="新增客戶" />
+			<SubTitle title={customer.fd_name ? "編輯客戶" : `新增客戶`} />
 			<Row label="客戶編號">{editCustomer.fd_secNo}</Row>
 			<Row label="客戶名稱">
 				<Input name="fd_name" value={editCustomer.fd_name} onChange={onChange} />
@@ -51,6 +51,12 @@ function CustomerForm({ customer }: CustomerFormProps) {
 					<Radio value={true}>是</Radio>
 					<Radio value={false}>否</Radio>
 				</Radio.Group>
+			</Row>
+			<Row label="不再購買">
+				<Checkbox
+					checked={editCustomer.fd_isDisabled}
+					onChange={({ target: { checked } }) => setEditCustomer({ ...editCustomer, fd_isDisabled: checked })}
+				/>
 			</Row>
 			<Button
 				type="primary"

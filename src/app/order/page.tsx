@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 
 async function Order() {
 	const userData = await getUserData().catch(() => redirect("/login"));
-	let customers = await couchdb("customers").getDocs<Customer>("_select", "bySecNo");
+	let customers = await couchdb("customers").getDocs<Customer>("_select", "byNotDisabled");
 	customers.map((customer) => ({ ...customer, _id: undefined, _rev: undefined, history: undefined }));
 	const order: Order = {
 		fd_secNo: generateSecNo(),

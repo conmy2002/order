@@ -17,6 +17,7 @@ function AddCustomer() {
 		fd_lestSendDate: "",
 		fd_isContact: false,
 		fd_comment: "",
+		fd_isDisabled: false,
 	};
 	return <CustomerForm customer={customer} />;
 }

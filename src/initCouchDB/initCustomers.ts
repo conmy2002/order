@@ -16,6 +16,13 @@ async function initCustomers() {
 				emit(doc.fd_phone, 1);
 			},
 		},
+		byNotDisabled: {
+			map: function (doc: Customer) {
+				if (!doc.fd_isDisabled) {
+					emit(doc.fd_isDisabled, 1);
+				}
+			},
+		},
 	});
 	await createIndex("customers", "lastBuyDate", {
 		lastBuyDate: {

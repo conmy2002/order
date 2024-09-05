@@ -14,11 +14,6 @@ interface ShowTableProps {
 }
 
 const columns: TableColumnsType<Order> = [
-	{
-		title: "填單日期",
-		dataIndex: "fd_createTime",
-		sorter: (a, b) => a.fd_createTime.localeCompare(b.fd_createTime),
-	},
 	{ title: "客戶姓名", dataIndex: ["fd_customer", "fd_name"] },
 	{ title: "總罐數", align: "center", render: (_, record) => sumBy(record.fd_buyItems, "fd_quantity") },
 	{
@@ -38,6 +33,11 @@ const columns: TableColumnsType<Order> = [
 				record.fd_buyItems.filter((buyItem) => !buyItem.fd_isSend),
 				"fd_quantity"
 			),
+	},
+	{
+		title: "填單日期",
+		dataIndex: "fd_createTime",
+		sorter: (a, b) => a.fd_createTime.localeCompare(b.fd_createTime),
 	},
 ];
 

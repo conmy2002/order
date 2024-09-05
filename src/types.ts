@@ -45,6 +45,8 @@ export interface Customer {
 	fd_isContact?: boolean;
 	/** 備註 */
 	fd_comment?: string;
+	/** 不再購買 */
+	fd_isDisabled?: boolean;
 }
 
 /** 產品 */
